@@ -65,7 +65,7 @@ release_dir = os.path.normpath(os.path.join(current_dir, 'release'))
 release_platform_dir = os.path.normpath(os.path.join(release_dir, sys.platform))
 
 
-icon_path = os.path.normpath(os.path.join(app_dir, '_logo_/icon.ico'))
+icon_path = os.path.normpath(os.path.join(app_dir, 'assets/images/icon.ico'))
 
 dist_dir = os.path.normpath(os.path.join(release_platform_dir, f'{config.app_name}'))
 if sys.platform == 'win32':
