@@ -1,0 +1,9 @@
+peewee==3.16.2
+pywebview==4.2.2
+requests==2.31.0
+zstd==1.5.5.1
+libsass==0.22.0
+pyinstaller==5.13.0
+PyGObject==3.44.1
+psutil==5.9.5
+beautifulsoup4==4.12.2

@@ -1,0 +1,139 @@
+// 1. Собственные переменные и переопределения.
+
+$global-color: #c8c8c8;
+
+//$global-emphasis-color: $global-color;
+$global-background: #212126;
+$global-muted-background: #33333a;
+$global-primary-background: #464966;
+$global-secondary-background: #e23229;
+$gold-color: #ADA24B;
+
+$accordion-title-font-size: 15px;
+$accordion-title-color: $global-color;
+$accordion-title-hover-color: darken($global-color, 10%);
+
+$global-border-width: 0;
+
+$button-disabled-background: lighten($global-primary-background, 35%);
+$button-disabled-color: $global-primary-background;
+
+$button-muted-background: lighten($global-muted-background, 50%);
+
+$form-background: $global-muted-background;
+$form-focus-background: $global-primary-background;
+
+$global-link-color: $global-color;
+$global-link-hover-color: darken($global-color, 10%);
+
+$offcanvas-bar-background: $global-primary-background;
+
+$notification-position: 30px;
+$notification-message-background: $global-background;
+
+$base-heading-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+
+
+// 2. Стандартные переменные фреймворка и примеси.
+
+@import "variables-theme.scss";
+@import "mixins-theme.scss";
+
+
+// 3. Хуки.
+
+.cut_diagonal_corners, .uk-notification-message, .uk-modal-dialog, .uk-button,
+.uk-input, .uk-textarea, .uk-select, .uk-tile, .uk-card, .uk-dropdown,
+.uk-navbar-dropdown, .uk-progress, .uk-accordion li.uk-open {
+	clip-path: polygon(0 0, calc(100% - 10.00px) 0, 100% 10.00px, 100% 100%, 10.00px 100%, 0 calc(100% - 10.00px));
+}
+
+.remove_cut_diagonal_corners, .uk-button-link, .uk-button-text {
+  clip-path: none !important;
+}
+
+.favorite_button {
+  color: $global-color !important;
+}
+
+.filled_favorite_button {
+  color: $gold-color !important;
+}
+
+.filled_favorite_button svg polygon {
+  fill: $gold-color;
+}
+
+.uk-progress, .uk-progress::-webkit-progress-bar {
+  border-radius: 0!important;
+}
+
+// * {
+//   scrollbar-width: auto;
+//   scrollbar-color: $global-primary-background $global-background;
+// }
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $global-muted-background;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $global-primary-background;
+  border: 0px none $global-background;
+}
+
+
+.uk-accordion-title::before {
+  display: none;
+}
+
+.transition, li .accordion_item_container {
+  transition: $transition-duration;
+}
+
+.uk-sortable-drag .accordion_item_container {
+  padding: $padding-small-padding;
+  background-color: $global-muted-background;
+}
+
+.uk-accordion li.uk-open .accordion_item_container, .darker_container {
+  background-color: darken($global-muted-background, 2%);
+  padding: $padding-small-padding;
+}
+
+.uk-radio:not(:disabled), .uk-checkbox:not(:disabled) {
+  background-color: $global-muted-background !important;
+}
+
+body {
+  overflow: hidden;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  background: $global-primary-background;
+}
+
+@mixin hook-pagination-item-active() {
+	background-color: darken($global-muted-background, 5%);
+	border-radius: 10%;
+}
+
+[contenteditable="true"] {
+  cursor: text;
+}
+
+.ellipsis_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block !important;
+}
+
+// 4. Импорт фреймворка UIkit.
+
+@import "uikit-theme.scss";

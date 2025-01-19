@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html data-framework="javascript" data-lt-installed="true">
+
+    <head>
+        <meta charset="utf-8">
+        
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/uikit.min.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/uikit-icons.min.js"></script>
+        <script>
+            UIkit.icon.add({ power: '<svg xmlns="http://www.w3.org/2000/svg" id="mdil-power" viewBox="0 0 24 24"><path d="M11,13V4H12V13H11M19,12.5A7.5,7.5 0 0,1 11.5,20A7.5,7.5 0 0,1 4,12.5C4,9.79 5.44,7.41 7.6,6.1L8.33,6.83C6.34,7.94 5,10.06 5,12.5A6.5,6.5 0 0,0 11.5,19A6.5,6.5 0 0,0 18,12.5C18,10.06 16.66,7.94 14.67,6.83L15.4,6.1C17.56,7.41 19,9.79 19,12.5Z"/></svg>' });
+        </script>
+    </head>
+
+    <body>
+        <div id="main_grid" class="uk-grid-collapse uk-child-width-1-1" uk-grid>
+            <div style="height: 60px; z-index: 9999;">
+                <div class="uk-padding-small uk-grid-small pywebview-drag-region" uk-grid>
+                    <div class="uk-width-expand">
+                        <div class="uk-flex uk-flex-middle">
+                            <span id="app_name" class="uk-animation-fade" hidden></span>
+                            <span id="app_version" class="uk-text-muted uk-margin-small-left uk-animation-fade" hidden></span>
+                            <a id="share_link" onclick="window.pywebview.api.open_url('share')" class="uk-margin-small-left uk-animation-fade" hidden>
+                                <span uk-icon="icon: discord;"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-auto">
+                        <button id="minimize_button" onclick="window.pywebview.api.minimize()" class="uk-button uk-button-small uk-button-primary uk-animation-fade" uk-icon="icon: minus; ratio: 0.8;" hidden></button>
+                    </div>
+
+                    <div class="uk-width-auto">
+                        <button id="close_button" onclick="window.pywebview.api.close()" class="uk-button uk-button-small uk-button-secondary uk-animation-fade" uk-icon="icon: close; ratio: 0.8;" hidden></button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div>
+                <div id="content_preloader" class="uk-position-center uk-animation-fade uk-animation-reverse" uk-spinner="ratio: 3"></div>
+
+                <div id="content_grid" class="uk-padding-small uk-padding-remove-top uk-grid-small uk-animation-fade" uk-grid hidden>
+
+                    <div class="uk-width-auto">
+                        <img class="uk-height-1-1 uk-margin-small-right" data-src="images/logo.png" width="200" height="50" uk-img>
+                    </div>
+                    
+                    <div class="uk-width-auto uk-flex uk-flex-bottom">
+                        <div class="uk-grid-small uk-margin-small-bottom" uk-grid>
+                            <div>
+                                <button id="replays_button" type="button" uk-toggle="target: #replays_window"
+                                    class="uk-button uk-button-link uk-text-secondary"
+                                    uk-icon="icon:play-circle;"></button>
+                            </div>
+
+                            <div>
+                                <button id="start_local_server_button" type="button" onclick="ss14starter.start_local_server()"
+                                    class="uk-button uk-button-link uk-text-warning" uk-icon="icon:server;"></button>
+                            </div>
+
+                            <div>
+                                <button id="notes_button" type="button" uk-toggle="target: #notes_window"
+                                    class="uk-button uk-button-link uk-text-muted" uk-icon="icon:file-edit;"></button>
+                            </div>
+
+                            <div>
+                                <button id="textart_button" type="button" uk-toggle="target: #textart_window"
+                                    class="uk-button uk-button-link uk-text-muted"
+                                    uk-icon="icon:image;"></button>
+                            </div>
+
+                            <div>
+                                <button id="stc_button" type="button" uk-toggle="target: #stc_window"
+                                    class="uk-button uk-button-link uk-text-muted" uk-icon="icon:microphone;"></button>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="uk-width-expand uk-flex uk-flex-bottom">
+                        <input id="servers_search" class="uk-input uk-text-uppercase uk-width-expand" type="text">
+                    </div>
+
+                    <div class="uk-width-auto uk-flex uk-flex-bottom">
+                        <button id="add_server_button" type="button" uk-toggle="target: #add_server_window"
+                            class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical" uk-icon="icon:plus;"></button>
+                    </div>
+
+                    <div class="uk-width-auto uk-flex uk-flex-bottom">
+                        <button id="settings_button" type="button" uk-toggle="target: #settings_window"
+                            class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical" uk-icon="icon:cog;"></button>
+                    </div>
+
+                    <div class="uk-width-auto uk-flex uk-flex-bottom">
+                        <button id="accounts_button" type="button" uk-toggle="target: #accounts_window"
+                            class="uk-button uk-button-primary" style="text-transform: none;"></button>
+                    </div>
+
+                    <div class="uk-width-1-1">
+                        <div class="uk-background-muted uk-padding-small uk-overflow-auto cut_diagonal_corners" style="height: calc(100vh - 170px);">
+                            <ul id="servers_list" style="transition: 0s;" uk-accordion="toggle: > div > div > div > .uk-accordion-title; content: > div > .uk-accordion-content;">
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+
+        </div>
+
+        <div id="add_server_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical uk-width-large">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <h3 id="adding_a_server_title" class="uk-text-center uk-light uk-margin-small-top uk-text-uppercase"></h3>
+                <form onsubmit="ss14starter.settings.add_server(event);">
+                    <div class="uk-grid-small uk-child-width-1-1 uk-margin-top" uk-grid>
+                        <div>
+                            <input name="server_address" id="server_address" type="text" class="uk-input uk-input-default">
+                        </div>
+
+                        <div>
+                            <button id="add_server_submit_button" type="submit" class="uk-button uk-button-primary uk-width-1-1" disabled></button>
+                        </div>
+                    </div>
+                </form>
+                
+        
+            </div>
+        </div>
+
+        <div id="settings_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical uk-width-large">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <h3 id="settings_title" class="uk-text-center uk-light uk-margin-small-top uk-text-uppercase"></h3>
+                <div class="uk-grid-small uk-child-width-1-1 uk-margin-top" uk-grid>
+                    <div>
+                        <button class="uk-button uk-button-primary uk-button-small uk-width-expand" type="button" id="language_selector_button">
+                            <span id="language_selector_button_label"></span>: <span id="language_selector_button_language_name"></span>
+                        </button>
+                    </div>
+
+                    <div>
+                        <label>
+                            <input id="reconnect_to_favorite_checkbox" type="checkbox" class="uk-checkbox">
+                            <span id="reconnect_to_favorite_label"></span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            <input id="hide_not_favorite_checkbox" type="checkbox" class="uk-checkbox">
+							<span id="hide_not_favorite_label"></span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            <input id="priority_for_account_connection_checkbox" type="checkbox" class="uk-checkbox">
+                            <span id="priority_for_account_connection_label"></span>
+                        </label>
+                    </div>
+
+                    <!-- <div>
+                        <label>
+                            <input id="multiverse_hub_checkbox" type="checkbox" class="uk-checkbox">
+                            <span id="multiverse_hub_label"></span>
+                        </label>
+                    </div> -->
+                    
+                    <div>
+                        <label>
+                            <input id="traffic_economy_checkbox" type="checkbox" class="uk-checkbox">
+                            <span id="traffic_economy_label"></span>
+                        </label>
+                    </div>
+
+                    <div hidden>
+                        <label>
+                            <input id="compat_mode_checkbox" type="checkbox" class="uk-checkbox">
+							<span id="compat_mode_label"></span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <button class="uk-button uk-button-primary uk-button-small uk-width-expand" type="button" id="local_server_build_selector_button">
+                            <span id="local_server_build_selector_button_label"></span>: <span id="local_server_build_selector_button_build_name"></span>
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <button id="open_local_server_folder_button" type="button" onclick="pywebview.api.open_local_server_folder();" class="uk-button uk-button-primary uk-button-small uk-width-1-1"></button>
+                    </div>
+
+                    <div class="uk-width-1-2">
+                        <button id="remove_engines_button" type="button" class="uk-button uk-button-secondary uk-button-small uk-width-1-1"></button>
+                    </div>
+
+                    <div class="uk-width-1-2">
+                        <button id="clear_content_data_button" type="button" class="uk-button uk-button-secondary uk-button-small uk-width-1-1"></button>
+                    </div>
+
+                </div>
+        
+            </div>
+        </div>
+
+        <div id="accounts_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                <div class="uk-grid-small uk-child-width-expand uk-margin-small-top" uk-grid>
+                    <div>
+                        <ul id="accounts_list" class="uk-list uk-background-muted uk-padding-small uk-height-medium uk-overflow-auto cut_diagonal_corners">
+
+                        </ul>
+                    </div>
+
+                    <div class="uk-flex uk-flex-middle">
+                        <form onsubmit="ss14starter.settings.sign_in(event);">
+                            <div class="uk-grid-small uk-child-width-1-1" uk-grid>
+                                <div>
+                                    <h3 id="signing_in_title" class="uk-text-center uk-light uk-text-uppercase"></h3>
+                                </div>
+                                <div>
+                                    <input id="auth_login" type="text" class="uk-input">
+                                </div>
+                                <div>
+                                    <input id="auth_password" type="password" class="uk-input">
+                                </div>
+
+                                <div id="auth_tfa_code_container" class="uk-animation-fade" hidden>
+                                    <div class="uk-grid-small" uk-grid>
+                                        <div class="uk-width-expand">
+                                            <input id="auth_tfa_code" type="text" class="uk-input">
+                                        </div>
+                                        <div>
+                                            <button id="auth_tfa_code_cancel" type="button" class="uk-button uk-button-secondary"></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button type="submit" id="auth_submit_button" type="button"
+                                        class="uk-button uk-button-primary uk-width-1-1" disabled></button>
+                                </div>
+                                <div class="uk-margin-medium-top">
+                                    <button type="button" id="register_new_button"
+                                        onclick="pywebview.api.open_url('register');"
+                                        class="uk-button uk-button-link uk-text-secondary uk-width-1-1"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="progress_bar_window" class="uk-flex-top" uk-modal="esc-close: false; bg-close: false;">
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <h4 id="progress_bar_title" class="uk-light uk-text-center uk-margin-small-top"></h4>
+                <progress id="progress_bar_progress" class="uk-progress" max="100"></progress>
+                <button onclick="progress_bar.close();" id="progress_bar_cancel_button" type="button" class="uk-button uk-button-secondary"></button>
+    
+            </div>
+        </div>
+
+        <div id="replays_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div>
+                    <h3 id="replays_title" class="uk-text-center uk-light uk-margin-small-top uk-text-uppercase"></h3>
+                </div>
+        
+                <ul id="replays_list"
+                    class="uk-list uk-background-muted uk-padding-small uk-height-medium uk-overflow-auto cut_diagonal_corners">
+        
+                </ul>
+                
+                <button onclick="pywebview.api.open_replays_folder();" id="open_replays_folder_button" class="uk-button uk-button-primary uk-button-small uk-width-expand" type="button"></button>
+        
+            </div>
+        </div>
+
+        <div id="stc_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div>
+                    <h3 id="stc_title" class="uk-text-center uk-light uk-margin-small-top uk-text-uppercase"></h3>
+                </div>
+
+                <div class="uk-grid-small uk-margin-top uk-child-width-1-1" uk-grid>
+                    <div>
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand">
+                                <button class="uk-button uk-button-primary uk-width-1-1" type="button" id="audio_input_devices_selector_button"></button>
+                            </div>
+                            <div>
+                                <button id="stc_toggle_button" class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical"
+                                    stc="false" type="button" uk-icon="power"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>
+                            <input id="stc_instant_send_checkbox" type="checkbox" class="uk-checkbox">
+                            <span id="stc_instant_send_label"></span>
+                        </label>
+                    </div>
+
+                    <div class="uk-width-1-2">
+                        <label>
+                            <span id="stc_activation_key_input_label"></span>
+                            <input id="stc_activation_key_input" class="uk-input" type="text">
+                        </label>
+                    </div>
+  
+                    <div class="uk-width-1-2">
+                        <label>
+                            <span id="stc_chat_key_input_label"></span>
+                            <input id="stc_chat_key_input" class="uk-input" type="text">
+                        </label>
+                    </div>
+
+                    <div>
+                        <span id="stc_prefixes_label"></span> <span id="stc_prefixes_info" uk-icon="icon: question; ratio: 0.8;"></span>
+                        <div class="uk-background-muted uk-padding-small uk-overflow-auto cut_diagonal_corners uk-margin-small-top" style="height: 105px;">
+                            <div id="stc_prefixes_grid" class="uk-grid-small uk-child-width-1-4" uk-grid>
+                            
+                            </div>
+                        </div>
+                        <button onclick="ss14starter.settings.create_stc_prefix();" id="stc_create_prefix_button" class="uk-button uk-button-primary uk-button-small uk-width-expand uk-margin" type="button"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="textart_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div>
+                    <h3 id="textart_title" class="uk-text-center uk-light uk-margin-small-top uk-text-uppercase"></h3>
+                </div>
+                
+                <div class="uk-grid-small uk-child-width-expand uk-flex-bottom" uk-grid>
+                    <div class="uk-width-auto">
+                        <div uk-form-custom>
+                            <input onchange="ss14starter.textart.select(this);" type="file" accept=".png, .jpg, .jpeg">
+                            <button id="textart_select_button" class="uk-button uk-button-primary" type="button"></button>
+                        </div>
+                    </div>
+
+                    <div class="uk-width-auto uk-flex uk-flex-bottom">
+                        <div class="uk-background-muted cut_diagonal_corners uk-padding-small uk-flex uk-flex-middle uk-flex-between" style="width: 70px; height: 10px;">
+                            <button id="textart_adapt_to_book_button" onclick="ss14starter.textart.adapt_to('book');" class="uk-button uk-button-link"
+                                type="button" disabled>
+                                <img data-src="images/book.png" width="12" uk-img>
+                            </button>
+
+                            <button id="textart_adapt_to_paper_button" onclick="ss14starter.textart.adapt_to('paper');" class="uk-button uk-button-link"
+                                type="button" disabled>
+                                <img data-src="images/paper.png" width="12" uk-img>
+                            </button>
+
+                            <button id="textart_adapt_to_pda_button" onclick="ss14starter.textart.adapt_to('pda');" class="uk-button uk-button-link"
+                                type="button" disabled>
+                                <img data-src="images/pda.png" width="16" style="margin-top: -1px;" uk-img>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label id="textart_width_label" class="uk-form-label uk-text-muted" for="textart_width_range"></label>
+                        <input id="textart_width_range" onchange="ss14starter.textart.set_width();" class="uk-range" type="range" value="49" min="8" max="49">
+                    </div>
+                    
+                    <div>
+                        <label id="textart_palette_size_label" class="uk-form-label uk-text-muted" for="textart_palette_size_range"></label>
+                        <input id="textart_palette_size_range" onchange="ss14starter.textart.set_palette_size();" class="uk-range" type="range" value="32" min="2" max="32">
+                    </div>
+
+                    <div class="uk-width-auto">
+                        <button id="textart_copy_button" onclick="ss14starter.textart.copy();" class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical" type="button" uk-icon="icon:copy;" disabled></button>
+                    </div>
+
+                    <div class="uk-width-1-1">
+                        <div id="textart_result" class="uk-height-medium uk-background-muted uk-overflow-auto uk-text-center cut_diagonal_corners" style="line-height: 23px;"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="notes_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div>
+                    <h3 id="notes_title" class="uk-text-center uk-light uk-margin-small-top uk-text-uppercase"></h3>
+                </div>
+        
+                <ul id="notes_list" class="uk-list uk-background-muted uk-padding-small uk-height-medium uk-overflow-auto cut_diagonal_corners" uk-accordion="toggle: > div > div > div > .uk-accordion-title; content: > div > .uk-accordion-content; multiple: true;" uk-sortable="handle: .uk-accordion-title">
+                
+                </ul>
+                
+                <button onclick="ss14starter.create_note();" id="create_note_button" class="uk-button uk-button-primary uk-button-small uk-width-expand" type="button"></button>
+            </div>
+        </div>
+
+        <div id="confirm_window" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-padding-small uk-margin-auto-vertical">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                
+                <h4 id="confirm_title" class="uk-text-center uk-light uk-margin-small-top"></h4>
+                
+                <div class="uk-grid-small uk-child-width-1-2 uk-margin-top" uk-grid>
+                    <div>
+                        <button id="confirm_button_no" type="button" class="uk-button uk-button-primary uk-width-1-1 uk-modal-close"></button>
+                    </div>
+    
+                    <div>
+                        <button id="confirm_button_yes" type="button" class="uk-button uk-button-secondary uk-width-1-1 uk-modal-close"></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+
+        <div id="language_selector_container" class="uk-background-muted uk-padding-small" uk-dropdown="toggle: #language_selector_button; mode: click; offset: 15; delay-hide: 0; animation: slide-top; pos: top; stretch: true; boundary: #language_selector_button;">
+            <ul id="language_selector_list" class="uk-nav">
+            </ul>
+        </div>
+
+        <div id="local_server_build_selector_container" class="uk-background-muted uk-padding-small" uk-dropdown="toggle: #local_server_build_selector_button; mode: click; offset: 15; delay-hide: 0; animation: slide-top; pos: top; stretch: true; boundary: #local_server_build_selector_button;">
+            <ul id="local_server_build_selector_selector_list" class="uk-nav">
+            </ul>
+        </div>
+
+        <div id="audio_input_devices_selector_container" class="uk-background-muted uk-padding-small uk-height-max-small" uk-dropdown="toggle: #audio_input_devices_selector_button; mode: click; offset: 15; delay-hide: 0; animation: slide-top; pos: top; stretch: true; boundary: #audio_input_devices_selector_button;">
+            <ul id="audio_input_devices_selector_list" class="uk-nav">
+            </ul>
+        </div>
+
+    </body>
+
+</html>

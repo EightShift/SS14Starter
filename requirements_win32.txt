@@ -1,0 +1,11 @@
+nuitka
+pywebview==4.4.1
+peewee==3.16.2
+requests==2.31.0
+zstd==1.5.5.1
+libsass==0.22.0
+psutil==5.9.5
+beautifulsoup4==4.12.2
+keyboard==0.13.5
+PyAudio==0.2.14
+vosk==0.3.45
