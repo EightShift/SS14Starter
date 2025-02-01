@@ -1,0 +1,332 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0/win-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {},
+    ".NETCoreApp,Version=v9.0/win-x64": {
+      "SS14.Loader/0.30.2": {
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "7.0.4",
+          "Microsoft.NET.ILLink.Tasks": "8.0.0",
+          "NSec.Cryptography": "22.4.0",
+          "Robust.LoaderApi": "1.0.0",
+          "Robust.Natives": "0.1.1",
+          "SQLitePCLRaw.bundle_e_sqlite3": "2.1.4",
+          "SharpZstd.Interop": "1.5.2-beta2"
+        },
+        "runtime": {
+          "SS14.Loader.dll": {}
+        }
+      },
+      "libsodium/1.0.18.2": {
+        "native": {
+          "runtimes/win-x64/native/libsodium.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Microsoft.Data.Sqlite.Core/7.0.4": {
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.4"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Data.Sqlite.dll": {
+            "assemblyVersion": "7.0.4.0",
+            "fileVersion": "7.0.423.11504"
+          }
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/8.0.0": {},
+      "NSec.Cryptography/22.4.0": {
+        "dependencies": {
+          "libsodium": "1.0.18.2"
+        },
+        "runtime": {
+          "lib/net5.0/NSec.Cryptography.dll": {
+            "assemblyVersion": "22.4.0.0",
+            "fileVersion": "22.4.0.0"
+          }
+        }
+      },
+      "Robust.Natives/0.1.1": {
+        "dependencies": {
+          "Robust.Natives.Angle": "0.1.1-chromium4758",
+          "Robust.Natives.Fluidsynth": "0.1.0",
+          "Robust.Natives.Freetype": "0.1.0",
+          "Robust.Natives.Glfw": "0.1.0",
+          "Robust.Natives.OpenAL": "0.1.0",
+          "Robust.Natives.Swnfd": "0.1.0"
+        }
+      },
+      "Robust.Natives.Angle/0.1.1-chromium4758": {
+        "native": {
+          "runtimes/win-x64/native/libEGL.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libGLESv2.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/zlib1.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Robust.Natives.Fluidsynth/0.1.0": {
+        "native": {
+          "runtimes/win-x64/native/fluidsynth.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libglib-2.0-0.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libgobject-2.0-0.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libgthread-2.0-0.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libinstpatch-2.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libintl-8.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libsndfile-1.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Robust.Natives.Freetype/0.1.0": {
+        "native": {
+          "runtimes/win-x64/native/freetype6.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Robust.Natives.Glfw/0.1.0": {
+        "native": {
+          "runtimes/win-x64/native/glfw3.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Robust.Natives.OpenAL/0.1.0": {
+        "native": {
+          "runtimes/win-x64/native/openal32.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Robust.Natives.Swnfd/0.1.0": {
+        "native": {
+          "runtimes/win-x64/native/swnfd.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SharpZstd.Interop/1.5.2-beta2": {
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SharpZstd.Interop.dll": {
+            "assemblyVersion": "1.5.2.0",
+            "fileVersion": "1.5.2.0"
+          }
+        },
+        "native": {
+          "runtimes/win-x64/native/zstd.dll": {
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/zstd.pdb": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SQLitePCLRaw.bundle_e_sqlite3/2.1.4": {
+        "dependencies": {
+          "SQLitePCLRaw.lib.e_sqlite3": "2.1.4",
+          "SQLitePCLRaw.provider.e_sqlite3": "2.1.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {
+            "assemblyVersion": "2.1.4.1835",
+            "fileVersion": "2.1.4.1835"
+          }
+        }
+      },
+      "SQLitePCLRaw.core/2.1.4": {
+        "dependencies": {
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {
+            "assemblyVersion": "2.1.4.1835",
+            "fileVersion": "2.1.4.1835"
+          }
+        }
+      },
+      "SQLitePCLRaw.lib.e_sqlite3/2.1.4": {
+        "native": {
+          "runtimes/win-x64/native/e_sqlite3.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SQLitePCLRaw.provider.e_sqlite3/2.1.4": {
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.4"
+        },
+        "runtime": {
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {
+            "assemblyVersion": "2.1.4.1835",
+            "fileVersion": "2.1.4.1835"
+          }
+        }
+      },
+      "System.Memory/4.5.4": {},
+      "Robust.LoaderApi/1.0.0": {
+        "runtime": {
+          "Robust.LoaderApi.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SS14.Loader/0.30.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "libsodium/1.0.18.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-flArHoVdscSzyV8ZdPV+bqqY2TTFlaN+xZf/vIqsmHI51KVcD/mOdUPaK3n/k/wGKz8dppiktXUqSmf3AXFgig==",
+      "path": "libsodium/1.0.18.2",
+      "hashPath": "libsodium.1.0.18.2.nupkg.sha512"
+    },
+    "Microsoft.Data.Sqlite.Core/7.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AUBM1KZ7EvmkYhC/ECXL4cjx+q55DJ3lmSf0NwAyRNArubNPRdroGono5uN6aW7Kqp+IUZwEK0Ywd1Gh7FDM2A==",
+      "path": "microsoft.data.sqlite.core/7.0.4",
+      "hashPath": "microsoft.data.sqlite.core.7.0.4.nupkg.sha512"
+    },
+    "Microsoft.NET.ILLink.Tasks/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B3etT5XQ2nlWkZGO2m/ytDYrOmSsQG1XNBaM6ZYlX5Ch/tDrMFadr0/mK6gjZwaQc55g+5+WZMw4Cz3m8VEF7g==",
+      "path": "microsoft.net.illink.tasks/8.0.0",
+      "hashPath": "microsoft.net.illink.tasks.8.0.0.nupkg.sha512"
+    },
+    "NSec.Cryptography/22.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lEntcPYd7h3aZ8xxi/y/4TML7o8w0GEGqd+w4L1omqFLbdCBmhxJAeO2YBmv/fXbJKgKCQLm7+TD4bR605PEUQ==",
+      "path": "nsec.cryptography/22.4.0",
+      "hashPath": "nsec.cryptography.22.4.0.nupkg.sha512"
+    },
+    "Robust.Natives/0.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RC280SoR/JkXj43n5kkTYN9q3qQmNKN/6qNLlVM9upXU52qwBpHSMa3R4+Le/vurDcVEthB1/T+TrkrZ3gGRPg==",
+      "path": "robust.natives/0.1.1",
+      "hashPath": "robust.natives.0.1.1.nupkg.sha512"
+    },
+    "Robust.Natives.Angle/0.1.1-chromium4758": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JU0TxWaDjJkA/ZslHVJmwpHd64LoLGbk2fpPS8xfhknALbWsUJnlB54KFdK6iSWLYyh3dzrTjYJFlSegMCasuA==",
+      "path": "robust.natives.angle/0.1.1-chromium4758",
+      "hashPath": "robust.natives.angle.0.1.1-chromium4758.nupkg.sha512"
+    },
+    "Robust.Natives.Fluidsynth/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DTQPYT7RXwnOu4mSv8RxxiRUy9oRhuVtJyZhWx0BEx9WCPsGmNA838P4dvqnj4d6wJDbGVz/6NODrk2uokwrGQ==",
+      "path": "robust.natives.fluidsynth/0.1.0",
+      "hashPath": "robust.natives.fluidsynth.0.1.0.nupkg.sha512"
+    },
+    "Robust.Natives.Freetype/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fTvSzvkYzsRiKI3X8fxVe+kypPLYBO5jbz2sA5J3/QXebk+F87XEhO7R/QaMI8924R5lwiQRYKIjkdJEhO/m0g==",
+      "path": "robust.natives.freetype/0.1.0",
+      "hashPath": "robust.natives.freetype.0.1.0.nupkg.sha512"
+    },
+    "Robust.Natives.Glfw/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Nsv5KClAah5qRN/v3gpKRWkknosTtjT9H6ULnA0/UYX4W0y5qHXqR0rROAdsXHkCLGricvoRmHDxUgJJqfpVtQ==",
+      "path": "robust.natives.glfw/0.1.0",
+      "hashPath": "robust.natives.glfw.0.1.0.nupkg.sha512"
+    },
+    "Robust.Natives.OpenAL/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bu790E/xo8u9AykxP4b8gWSw2QPRPcVeV+TZh/uV1bV6XFLOnBXajfnguz0R732U8X9mHlXVDZeQSsMQlJikZQ==",
+      "path": "robust.natives.openal/0.1.0",
+      "hashPath": "robust.natives.openal.0.1.0.nupkg.sha512"
+    },
+    "Robust.Natives.Swnfd/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3qLwO/GvkcMILM3nfjaZfx1blzLixfs0NdYxh1kG8cAZ2qd12T1l1c7p1gmCAc0M6GKYFBvrsk6ArG2dq7BUfg==",
+      "path": "robust.natives.swnfd/0.1.0",
+      "hashPath": "robust.natives.swnfd.0.1.0.nupkg.sha512"
+    },
+    "SharpZstd.Interop/1.5.2-beta2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-woJJXU8x1lIT1dVS+fSKVyk1xOTerB0KyGdpYiu4cjR5ugtAdYWau30uv9H4RSbYFTqKKeQAzAaxV33frqgc4w==",
+      "path": "sharpzstd.interop/1.5.2-beta2",
+      "hashPath": "sharpzstd.interop.1.5.2-beta2.nupkg.sha512"
+    },
+    "SQLitePCLRaw.bundle_e_sqlite3/2.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EWI1olKDjFEBMJu0+3wuxwziIAdWDVMYLhuZ3Qs84rrz+DHwD00RzWPZCa+bLnHCf3oJwuFZIRsHT5p236QXww==",
+      "path": "sqlitepclraw.bundle_e_sqlite3/2.1.4",
+      "hashPath": "sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512"
+    },
+    "SQLitePCLRaw.core/2.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-inBjvSHo9UDKneGNzfUfDjK08JzlcIhn1+SP5Y3m6cgXpCxXKCJDy6Mka7LpgSV+UZmKSnC8rTwB0SQ0xKu5pA==",
+      "path": "sqlitepclraw.core/2.1.4",
+      "hashPath": "sqlitepclraw.core.2.1.4.nupkg.sha512"
+    },
+    "SQLitePCLRaw.lib.e_sqlite3/2.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2C9Q9eX7CPLveJA0rIhf9RXAvu+7nWZu1A2MdG6SD/NOu26TakGgL1nsbc0JAspGijFOo3HoN79xrx8a368fBg==",
+      "path": "sqlitepclraw.lib.e_sqlite3/2.1.4",
+      "hashPath": "sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512"
+    },
+    "SQLitePCLRaw.provider.e_sqlite3/2.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CSlb5dUp1FMIkez9Iv5EXzpeq7rHryVNqwJMWnpq87j9zWZexaEMdisDktMsnnrzKM6ahNrsTkjqNodTBPBxtQ==",
+      "path": "sqlitepclraw.provider.e_sqlite3/2.1.4",
+      "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.4.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+    },
+    "Robust.LoaderApi/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
