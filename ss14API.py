@@ -927,6 +927,7 @@ class ss14Api():
 		
 		command = [
 			self.config.dotnet_path,
+			'--roll-forward Major', # просто игра на dotnet 9, а сервер на dotnet 8
 			self.config.local_server_path
 		]
 

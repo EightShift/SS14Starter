@@ -68,7 +68,7 @@ class ContentVersion(BaseModel):
 	@property
 	def content_manifest(self):
 		return ContentManifest.select().where(ContentManifest.VersionId == self.Id)
-		
+
 
 class Content(BaseModel):
 	class Meta:
@@ -83,7 +83,8 @@ class Content(BaseModel):
 	@classmethod
 	def buffer(cls):
 		return BufferContextManager(cls)
-	
+
+
 class ContentManifest(BaseModel):
 	class Meta:
 		table_name = 'ContentManifest'
