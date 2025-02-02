@@ -280,42 +280,77 @@ class ss14Api():
 	def _collect_content_files(self, content_version, manifest):
 		self.progress_bar.set_title('collecting_content_files')
 
-		missing_manifest = []
+		source_content_version = ContentVersion.select(
+		).where(
+			(ContentVersion.Hash == content_version.Hash) & (ContentVersion.Id != content_version.Id)
+		).order_by(
+			ContentVersion.ForkVersion.desc(),
+			ContentVersion.ForkId.desc()
+		).get_or_none()
 
-		
-		sub_manifests = split_list(manifest, max_size=999)
-		
-		with ContentManifest.buffer() as content_manifest_buffer:
-			for sub_manifest in sub_manifests:
-				self.progress_bar.add_progress(100 / len(sub_manifests))
-
-				content_hashes = [i[1] for i in sub_manifest]
-				paths = [i[2] for i in sub_manifest]
-
-				if self.cancellation_token.condition:
-					raise LoadingCancelled()
-				
-				contents = Content.select().where(Content.Hash.in_(content_hashes))
-				contents_manifest = ContentManifest.select().where(
-					(ContentManifest.Path.in_(paths)) &
-					(ContentManifest.ContentId.in_([c.Id for c in contents]))
-				)
-				
-				for index, content_hash, content_item_path in sub_manifest:
-					matching_contents_manifest = [cm.ContentId for cm in contents_manifest if content_item_path == cm.Path]
-
-					matching_contents = [c for c in contents if content_hash == c.Hash and c.Id in matching_contents_manifest]
-					if not len(matching_contents):
-						missing_manifest.append((index, content_hash, content_item_path))
-						continue
-
-					content_manifest_buffer.insert(
-						VersionId=content_version.Id,
-						Path=content_item_path,
-						ContentId=matching_contents[0].Id
-					)
+		if not source_content_version and content_version.ZipHash:
+			source_content_version = ContentVersion.select(
+			).where(
+				(ContentVersion.ZipHash == content_version.ZipHash) & (ContentVersion.Id != content_version.Id)
+			).order_by(
+				ContentVersion.ForkVersion.desc(),
+				ContentVersion.ForkId.desc()
+			).get_or_none()
 			
-		return missing_manifest
+		if source_content_version:
+			source_content_manifest_count = source_content_version.content_manifest.count()
+
+			offset = 0
+			limit = 999
+			while offset < source_content_manifest_count:
+				source_content_manifest_part = source_content_version.content_manifest.offset(offset).limit(limit)
+				ContentManifest.insert_many([{'VersionId': content_version.Id, 'Path': i.Path, 'ContentId': i.ContentId} for i in source_content_manifest_part]).execute()
+				offset += limit
+
+				self.progress_bar.add_progress(100 / (source_content_manifest_count / limit))
+
+			return True
+
+		if self.settings.get('traffic_economy'):
+			missing_manifest = []
+
+			sub_manifests = split_list(manifest, max_size=999)
+			
+			with ContentManifest.buffer() as content_manifest_buffer:
+				for sub_manifest in sub_manifests:
+					self.progress_bar.add_progress(100 / len(sub_manifests))
+
+					content_hashes = [i[1] for i in sub_manifest]
+					paths = [i[2] for i in sub_manifest]
+
+					if self.cancellation_token.condition:
+						raise LoadingCancelled()
+					
+					contents = Content.select().where(Content.Hash.in_(content_hashes))
+					contents_manifest = ContentManifest.select().where(
+						(ContentManifest.Path.in_(paths)) &
+						(ContentManifest.ContentId.in_([c.Id for c in contents]))
+					)
+					
+					for index, content_hash, content_item_path in sub_manifest:
+						matching_contents_manifest = [cm.ContentId for cm in contents_manifest if content_item_path == cm.Path]
+
+						matching_contents = [c for c in contents if content_hash == c.Hash and c.Id in matching_contents_manifest]
+						if not len(matching_contents):
+							missing_manifest.append((index, content_hash, content_item_path))
+							continue
+
+						content_manifest_buffer.insert(
+							VersionId=content_version.Id,
+							Path=content_item_path,
+							ContentId=matching_contents[0].Id
+						)
+			
+			return missing_manifest if len(missing_manifest) else True
+		
+
+		
+		
 
 	def _download_content_files(self, manifest_download_url, missing_manifest, content_version_id, parts=20):
 		self.progress_bar.set_title('downloading_content_files')
@@ -456,10 +491,15 @@ class ss14Api():
 
 			return content_version
 
-		if Content.select().exists() and self.settings.get('traffic_economy'):
-			manifest = self._collect_content_files(content_version, manifest)
+		if Content.select().exists():
+			collection_result = self._collect_content_files(content_version, manifest)
+			if collection_result == True:
+				return content_version
+			
+			if type(collection_result) == list:
+				manifest = collection_result
 
-		if len(manifest) and manifest_download_url:
+		if manifest_download_url:
 			self._download_content_files(manifest_download_url, manifest, content_version.Id)
 
 		return content_version
@@ -468,9 +508,6 @@ class ss14Api():
 		old_content_versions = ContentVersion.select().where(
 			ContentVersion.LastUsed < datetime.now() - timedelta(weeks=1)
 			)
-		
-		if not old_content_versions.count():
-			return
 		
 		for old_content_version in old_content_versions:
 			ContentManifest.delete().where(ContentManifest.VersionId == old_content_version.Id).execute()

@@ -4,7 +4,7 @@ import ctypes
 
 # INFO
 app_name = 'SS14Starter'
-app_version = 2.14
+app_version = 2.15
 platform = sys.platform
 
 gui = 'gtk'
